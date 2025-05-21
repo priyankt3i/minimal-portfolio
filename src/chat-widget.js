@@ -14,13 +14,25 @@
       z-index: 1001; /* Ensure it's above other fixed elements like footer/accordion */
     }
     #chat-popup {
+      display: flex; /* Added for flex children */
+      flex-direction: column; /* Added for flex children */
+      position: absolute; /* Kept from original for desktop view */
+      bottom: 90px; /* Adjusted to be above bubble (64px + 20px margin + some buffer) */
+      right: 0;
+      width: 90vw; /* Use viewport width percentage */
+      max-width: 400px; /* Max width for larger screens */
       height: 70vh;
-      max-height: 70vh;
-      transition: all 0.3s;
-      overflow: hidden;
-      /* Basic styling to make it visible without Tailwind */
-      border: 1px solid #ccc; 
+      max-height: 600px; /* Max height in pixels */
       background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px; /* Original had rounded-md */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Original had shadow-md */
+      transition: all 0.3s ease-in-out;
+      overflow: hidden; /* Important for child elements to not break rounded corners */
+      z-index: 1000; /* Ensure it's above chat bubble if they overlap during transition */
+    }
+    #chat-popup.hidden { /* Ensure hidden class works */
+        display: none !important;
     }
     #chat-bubble {
         /* Basic styling for visibility */
@@ -65,6 +77,13 @@
         display: flex;
         align-items: center;
     }
+    #chat-messages { /* Ensure this is scrollable */
+        flex-grow: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        word-break: break-word; /* Prevent long words from breaking layout */
+    }
     #chat-input {
         flex-grow: 1; /* flex-1 */
         border: 1px solid #d1d5db; /* border-gray-300 */
@@ -85,15 +104,21 @@
 
     @media (max-width: 768px) {
       #chat-popup {
-        position: fixed;
+        position: fixed; /* Full screen on mobile */
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        max-height: 100%;
+        max-width: 100%; /* Override max-width */
+        max-height: 100%; /* Override max-height */
         border-radius: 0;
+        bottom: 0; /* Ensure it covers the whole screen, overriding desktop 'bottom' */
+      }
+      #chat-widget-container { /* Adjust container for mobile if bubble needs to move */
+        bottom: 10px;
+        right: 10px;
       }
     }
     `;
@@ -298,45 +323,56 @@ Availability: 1 month's notice
         chatMessages.appendChild(thinkingElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
-        const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY; // Changed to VITE_GEMINI_API_KEY
         if (!apiKey) {
-            console.error('OpenAI API Key is missing. Make sure VITE_OPENAI_API_KEY is set in your .env file.');
+            console.error('Gemini API Key is missing. Make sure VITE_GEMINI_API_KEY is set in your .env file.');
             reply("Sorry, I can't connect to my brain right now (API key missing). Please tell Kumar to check the setup!");
-            chatMessages.removeChild(thinkingElement); // Remove "Thinking..." message
+            chatMessages.removeChild(thinkingElement); 
             return;
         }
 
-        const url = 'https://api.openai.com/v1/chat/completions'; 
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`; // Changed to Gemini API URL
+        
         const headers = {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
         };
-        const data = {
-            model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: prompt }],
+
+        // Gemini API payload structure
+        const geminiPayload = {
+          contents: [{
+            role: "user", // Role can be "user" or "model"
+            parts: [{ text: prompt }]
+          }],
+          generationConfig: {
             temperature: 0.7,
-            max_tokens: 2048,
-          };
+            maxOutputTokens: 2048,
+          }
+        };
         
         fetch(url, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify(data),
+            body: JSON.stringify(geminiPayload), // Use Gemini payload
           })
           .then(response => response.json())
           .then(data => {
-            chatMessages.removeChild(thinkingElement); // Remove "Thinking..." message
-            if (!data || data.error || !data.choices || data.choices.length === 0) {
-              console.error('OpenAI error:', data ? data.error : 'No response received');
+            chatMessages.removeChild(thinkingElement); 
+            if (data.error) {
+              console.error('Gemini API error:', data.error);
+              reply(`Sorry, I encountered an error: ${data.error.message || 'Unknown error'}`);
+              return;
+            }
+            if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content || !data.candidates[0].content.parts || data.candidates[0].content.parts.length === 0) {
+              console.error('Gemini error: Invalid response structure', data);
               reply("Sorry, I had a little hiccup trying to get that information. Maybe try asking differently?");
               return;
             }
-            const responseMessage = data.choices[0].message.content;
+            const responseMessage = data.candidates[0].content.parts[0].text; // Adjusted for Gemini response
             reply(responseMessage);          
           })
           .catch(error => {
-            chatMessages.removeChild(thinkingElement); // Remove "Thinking..." message
-            console.error('OpenAI fetch error:', error);
+            chatMessages.removeChild(thinkingElement); 
+            console.error('Gemini fetch error:', error);
             reply("Oops! I couldn't connect to my brain. Please check the internet connection or try again later.");
           });
       }
