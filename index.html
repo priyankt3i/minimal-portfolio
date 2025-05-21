@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monochrome Portfolio</title>
+    <!-- Vite will inject CSS here via src/main.js -->
+</head>
+<body>
+    <div class="top-bar">
+        <div class="profile-image-container">
+            <img src="/my-notion-face-transparent.png" alt="Profile Avatar" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/40x40/212529/f8f9fa?text=Me';">
+        </div>
+        <div class="theme-toggle-container">
+            <button id="themeToggle">Dark Mode</button>
+        </div>
+    </div>
+
+    <div class="content-placeholder">
+        <h1 id="dynamicContentTitle">My Journey</h1>
+
+        <div id="portfolioContentArea" class="portfolio-details">
+            <div id="welcomeContentBlock" class="content-section">
+                <h2>Glad to see you here!</h2>
+                <p style="margin-right: 10px;" >
+                  I am a fullstack Engineer with over <span id="dynamicYears">13</span> years of industry experience where I have been involved in various stages of SDLC. From Planning to Design, Development, Testing, and Delivery. I can align, lead, and grow world-class product teams from 10 to 50 people.
+                </p>
+                <p style="margin-right: 10px;" >
+                  More recently, I was involved in building a GenAI application for business intelligence and data analysis using Generative AI. Building both front-end, middle-ware, and backend for a complete solution. Training, Finetuning, and Prompt Engineering.
+                </p>
+                <p style="margin-right: 10px;" >
+                  Extensive experience in API development, SQL/NoSQL Database Design, DevOps, Building pipelines, UI/Functional/API automation, and CI/CD to deliver high-quality software products and services to clients in the financial sector.
+                </p>
+
+                <h2>Skills</h2>
+                <div class="skills-container">
+                    <div class="skills-category">
+                        <h3>Frontend</h3>
+                        <div class="skills-grid">
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="JavaScript" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/typescript-original.svg" alt="TypeScript" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/nodejs-original-wordmark.svg" alt="Node.js" height="50" /> 
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Backend</h3>
+                        <div class="skills-grid">
+                            <img style="margin: 10px" src="./public/icons/rest-api-icon.svg" alt="RESTful" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/python-original.svg" alt="Python" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/c-original.svg" alt="C" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/cplusplus-original.svg" alt="C++" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/express-original-wordmark.svg" alt="Express.js" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/mongodb-original-wordmark.svg" alt="MongoDB" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/firebase.png" alt="Firebase" height="50" />
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Cloud / DevOps</h3>
+                        <div class="skills-grid">
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/microsoft_azure-icon.svg" alt="Azure" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/google_cloud-icon.svg" alt="GCP" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/linux-original.svg" alt="Linux" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/git-scm-icon.svg" alt="Git" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="Docker" height="50" />
+                            <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/gnu_bash-icon.svg" alt="Bash" height="50" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="educationContentBlock" class="content-section hidden-content">
+                <div class="entry">
+                    <div class="entry-header">
+                        <h4>ICFAI UNIVERSITY</h4> <span class="location">| Dehradun, India</span>
+                        <span class="float-right-span">Aug 2007 – June 2011</span>
+                        <p class="degree-title">Bachelor of Technology, Computer Science & Engineering</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>Data Structure and Design, Digital Electronic Circuit Design, Robotics</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Languages Studied: Object Oriented Programming using Java, C# and C++</li>
+                            <li>Concepts Studied: Numerical Analysis, Operational Optimization, Project Management</li>
+                            <li>Other Relevant Subjects: Digital Electronic Circuit Operation, Computer Architecture, Microcontroller</li>                        
+                            <li>Database Hands-on: SQL, DB2</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="entry">
+                    <div class="entry-header">
+                        <h4>Internship: ROBOSAPIENS TECHNOLOGIES Pvt. Ltd.</h4> <span class="location">| Noida, India</span>
+                        <span class="float-right-span">Jan 2011 – Jun 2011</span>
+                    </div>
+                    <p class="job-title">Research Associate - Intern</p>
+                    <ul>
+                        <li>Conducted workshop on Robotics & Embedded System in numerous Engineering Colleges across India.</li>
+                        <li>Also conducted workshop on Ethical Hacking in numerous Engineering Colleges and Schools across India.</li>
+                    </ul>
+                    <p class="degree-title">Projects:</p>
+                    <ul>
+                        <li>Steganoelectronic Security System @ Robosapiens India Pvt. Ltd., Noida</li>
+                        <li>MicroMouse - an Artificial Maze Solving Robot @ Robosapiens India Pvt. Ltd., Noida</li>
+                        <li>DTMF Controlled & Autonomous Robot @ Robosapiens India Pvt. Ltd., Noida</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="experiencesContainer">
+                <div id="ibmExperienceBlock" class="content-section hidden-content">
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h4>IBM</h4> <span class="location">| Bangalore, India</span>
+                            <span class="float-right-span">Jun 2011 – Feb 2012</span>
+                        </div>
+                        <p class="job-title">Technical Support Associate</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>Citrix, IBM WebSphere, Java, Test Design, Agile</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Installed operating systems, applications, security updates, and drivers on user machines.</li>
+                            <li>Responded promptly to emergencies requiring immediate attention such as server outages or data loss incidents.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="cognizantExperienceBlock" class="content-section hidden-content">
+                     <div class="entry">
+                        <div class="entry-header">
+                            <h4>COGNIZANT US CORP</h4> <span class="location">| Boston, MA</span>
+                            <span class="float-right-span">Feb 2017 – Jul 2019</span>
+                        </div>
+                        <p class="job-title">Associate QA Automation Lead</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>Azure Pipeline, ASP.Net C#, Java, Groovy, Jenkins, TeamCity, UFT, Selenium, VBA, Gherkins, API Testing</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Designed and maintained CI/CD pipelines using Jenkins.</li>
+                            <li>Developed automated test scripts in Java, Selenium WebDriver, TestNG, and Maven to test web applications.</li>
+                            <li>Designed End-To-End test automation for various clients within the company.</li>
+                        </ul>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h4>COGNIZANT INDIA PVT. LTD.</h4> <span class="location">| Kolkata, India</span>
+                            <span class="float-right-span">Feb 2012 – Jan 2017</span>
+                        </div>
+                        <p class="job-title">Associate - QA Automation Lead</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>UFT, VBScript, Java, Groovy, Gherkins, BDD, TDD, Functional Automation, Test Design, Agile</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Built and maintained CI/CD pipeline for automated API testing using Postman.</li>
+                            <li>Configured Jenkins jobs to run automated regression suites on a nightly basis.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="advisor360ExperienceBlock" class="content-section hidden-content">
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h4>ADVISOR360</h4> <span class="location">| Weston, MA</span>
+                            <span class="float-right-span">Aug 2019 – Feb 2024</span>
+                        </div>
+                        <p class="job-title">DevOps Engineer III</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>.Net C#, Python, Azure CosmosDB, Jenkins, Azure LogicApps, MVC, Shell/Bash, EntityFramework, Redis, IaS, Docker, Ansible, RESTful API, YAML/JSON, Razer, SwaggerUI, Svelte, Streamlit, WebScraping</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Developed intuitive Data Analysis Dashboards using Streamlit and WebScraping techniques to enhance data insights.</li>
+                            <li>Owned multiple GenAI initiative to develop chatbot for internal knowledge-base, FAQs and existing documentations.</li>
+                            <li>Built and maintained backend database and API using MVC, C#, CosmosDB, Razor, and microservices architecture.</li>
+                            <li>Designed and maintained CI/CD Pipelines as Code using Git, Jenkins, Ansible.</li>
+                            <li>Managed source code repositories such as GitLab and GitHub by creating branches and merging pull requests.</li>
+                            <li>Built an in-house ETL Test Framework using SSIS, C#, and EntityFramework.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="plymouthRockExperienceBlock" class="content-section hidden-content">
+                    <div class="entry">
+                        <div class="entry-header">
+                            <h4>PLYMOUTHROCK ASSURANCE</h4> <span class="location">| Boston, MA</span>
+                            <span class="float-right-span">Apr 2024 – Present</span>
+                        </div>
+                        <p class="job-title">STG - Application Development</p>
+                        <div class="key-skills">
+                            <strong>Key Skills:</strong> <span>Python, NodeJs, Java, Jenkins, React, Selenium, Playwright, HTML, CSS, OpenAI, Ollama, RESTful API, YAML/JSON, Langchain, Streamlit, RAG, FastAPI, Docker, LLM, Pydantic, Agentic RAG, RagChain</span>
+                        </div>
+                        <button class="gemini-summary-button">✨ Generate Role Summary</button>
+                        <ul>
+                            <li>Developed and maintained user-facing data visualization websites and chatbots using Python, Streamlit, Django, HTML, CSS, JavaScript, and NodeJs.</li>
+                            <li>Led the development of TestGen AI, an AI-based test case generator, utilizing Langchain, Streamlit, RAG, FastAPI, Docker, LLMs, Pydantic, Agentic RAG, and RagChain.</li>
+                            <li>Extensively worked on python library for unstructured to structure data conversion, Data PreProcessing for training Dataset and RAG ingestion.</li>
+                            <li>Created interactive dashboards using Streamlit to visualize complex backend data.</li>
+                            <li>Created Python/Flask-based portal for Automated Data Validation.</li>
+                            <li>Utilized Machine Learning algorithms to generate synthetic data for staging test environments.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div> 
+
+    <div id="geminiModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+            <h3 id="geminiModalTitle" class="modal-title">✨ Gemini's Suggestion</h3>
+            <div id="geminiModalBody" class="modal-body">
+                <div class="loader" id="geminiLoader"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-wrapper-outer">
+        <div class="accordion-wrapper-inner">
+            <div class="accordion-container">
+                <div class="accordion-track" id="accordion">
+                    <div class="pane"> Welcome </div>
+                    <div class="pane"> PlymouthRock </div>
+                    <div class="pane"> Advisor360 </div>
+                    <div class="pane"> Cognizant </div>
+                    <div class="pane"> IBM </div>
+                    <div class="pane"> University </div>
+                </div>
+            </div>
+            <div class="accordion-controls">
+                <button id="prev">Prev</button>
+                <button id="next">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <footer>
+        <p>&copy; 2024 Kumar Priyank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

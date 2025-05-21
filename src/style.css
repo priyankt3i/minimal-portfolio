@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+:root {
+    /* Light Mode (default) */
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --content-title-color: #343a40;
+    --section-title-color: #495057;
+    --subtitle-color: #6c757d;
+    --key-skills-label-color: var(--text-color);
+    --key-skills-text-color: #495057;
+    --list-item-color: #343a40;
+    --accent-gray: #dee2e6;
+    --toggle-bg: var(--subtitle-color);
+    --toggle-text: var(--bg-color);
+    --toggle-border: var(--text-color);
+    --toggle-hover-bg: var(--section-title-color);
+    --modal-bg: var(--bg-color);
+    --modal-border-color: var(--accent-gray);
+    --gemini-icon-hover-bg: #e9ecef;
+    --gemini-button-bg: var(--subtitle-color);
+    --gemini-button-text: var(--bg-color);
+    --gemini-button-hover-bg: var(--section-title-color);
+    --loader-color: var(--text-color);
+    
+    /* Accordion Pane Colors - Light Mode */
+    --pane-1-bg: #f0f0f0;
+    --pane-1-active-bg: #e0e0e0;
+    --pane-2-bg: #e8e8e8;
+    --pane-2-active-bg: #d8d8d8;
+    --pane-3-bg: #e0e0e0;
+    --pane-3-active-bg: #d0d0d0;
+    --pane-4-bg: #d8d8d8;
+    --pane-4-active-bg: #c8c8c8;
+    --pane-5-bg: #d0d0d0;
+    --pane-5-active-bg: #b8b8b8;
+    --accordion-pane-text: var(--text-color);
+    --accordion-controls-bg: var(--subtitle-color);
+    --accordion-controls-text: var(--bg-color);
+    --accordion-controls-hover-bg: var(--section-title-color);
+}
+
+body.dark-mode {
+    --bg-color: #212529;
+    --text-color: #f8f9fa;
+    --content-title-color: #e9ecef;
+    --section-title-color: #ced4da;
+    --subtitle-color: #adb5bd;
+    --key-skills-label-color: var(--text-color);
+    --key-skills-text-color: #ced4da;
+    --list-item-color: #dee2e6;
+    --accent-gray: #343a40;
+    --toggle-bg: var(--subtitle-color);
+    --toggle-text: #212529;
+    --toggle-border: var(--text-color);
+    --toggle-hover-bg: var(--section-title-color);
+    --modal-bg: #343a40;
+    --modal-border-color: #495057;
+    --gemini-icon-hover-bg: #495057;
+    --gemini-button-bg: var(--subtitle-color);
+    --gemini-button-text: #212529;
+    --gemini-button-hover-bg: var(--section-title-color);
+    --loader-color: var(--text-color);
+
+    /* Accordion Pane Colors - Dark Mode */
+    --pane-1-bg: #2c2c2c;
+    --pane-1-active-bg: #3c3c3c;
+    --pane-2-bg: #333333;
+    --pane-2-active-bg: #434343;
+    --pane-3-bg: #3a3a3a;
+    --pane-3-active-bg: #4a4a4a;
+    --pane-4-bg: #414141;
+    --pane-4-active-bg: #515151;
+    --pane-5-bg: #484848;
+    --pane-5-active-bg: #585858;
+    --accordion-pane-text: var(--text-color);
+    --accordion-controls-bg: var(--subtitle-color);
+    --accordion-controls-text: #212529;
+    --accordion-controls-hover-bg: var(--section-title-color);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex; /* Changed for fixed layout */
+    flex-direction: column; /* Changed for fixed layout */
+    height: 100vh; /* Changed for fixed layout */
+    overflow: hidden; /* Prevent body scroll */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.top-bar {
+    position: fixed; /* Stays fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.profile-image-container img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--toggle-border);
+}
+
+.theme-toggle-container {
+    position: static;
+}
+
+#themeToggle {
+    padding: 8px 15px; background-color: var(--toggle-bg); color: var(--toggle-text);
+    border: 1px solid var(--toggle-border); border-radius: 20px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+#themeToggle:hover { background-color: var(--toggle-hover-bg); }
+
+.content-placeholder {
+    flex-grow: 1; /* Takes available space */
+    width: 80%; 
+    max-width: 900px; 
+    padding: 20px;
+    margin: 0 auto; /* Center the content placeholder */
+    padding-top: 80px; /* Space for fixed top-bar (approx 70px + 10px buffer) */
+    padding-bottom: 200px; /* Space for fixed accordion + footer (approx 150px accordion + 50px footer) */
+    overflow-y: auto; /* Enable scrolling for this element only */
+    text-align: left;
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+#dynamicContentTitle {
+    font-size: 2.2rem; font-weight: 500; color: var(--content-title-color);
+    transition: color 0.3s ease; text-align: center; margin-bottom: 30px;
+}
+
+.portfolio-details { margin-top: 20px; }
+.content-section { animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hidden-content { display: none !important; }
+/* .hidden-lottie class is no longer needed */
+
+
+.entry {
+    margin-bottom: 30px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--accent-gray);
+}
+.entry:last-child { border-bottom: none; margin-bottom: 0; }
+.entry-header { margin-bottom: 8px; }
+.entry-header::after { content: ""; clear: both; display: table; }
+.entry h4 {
+    font-size: 1.2rem; font-weight: 500; color: var(--section-title-color);
+    margin: 0 0 5px 0; display: inline;
+}
+.entry .location {
+    font-size: 1.1rem; font-weight: 400; color: var(--section-title-color); display: inline;
+}
+.float-right-span {
+    float: right; font-weight: 400; font-size: 0.9em; color: var(--subtitle-color);
+}
+.job-title, .degree-title {
+    font-size: 1rem; font-weight: 500; color: var(--subtitle-color);
+    margin-bottom: 10px; font-style: italic;
+}
+.key-skills { margin-bottom: 10px; font-size: 0.9rem; }
+.key-skills strong { font-weight: 500; color: var(--key-skills-label-color); }
+.key-skills span { color: var(--key-skills-text-color); }
+
+.gemini-summary-button {
+    display: inline-block; padding: 6px 12px; font-size: 0.85rem; font-weight: 500;
+    background-color: var(--gemini-button-bg); color: var(--gemini-button-text);
+    border: 1px solid transparent; border-radius: 15px; cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; margin-top: 10px; margin-bottom: 10px;
+}
+.gemini-summary-button:hover { background-color: var(--gemini-button-hover-bg); }
+
+.entry ul {
+    list-style-type: none; margin-left: 0; padding-left: 0;
+    font-size: 0.95rem; line-height: 1.6;
+}
+.entry ul li {
+    margin-bottom: 8px; color: var(--list-item-color);
+    position: relative; padding-left: 25px;
+}
+.entry ul li::before {
+    content: '•'; position: absolute; left: 5px; top: 0px;
+    color: var(--subtitle-color); 
+    font-size: 1.2em;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); display: flex;
+    justify-content: center; align-items: center; z-index: 2000;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+.modal-content {
+    background-color: var(--modal-bg); padding: 25px 30px; border-radius: 8px;
+    width: 90%; max-width: 550px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative; color: var(--text-color);
+    border: 1px solid var(--modal-border-color);
+}
+.modal-title {
+    font-size: 1.3rem; font-weight: 500; color: var(--content-title-color);
+    margin-bottom: 15px;
+}
+.modal-body {
+    font-size: 0.95rem; line-height: 1.6; min-height: 50px;
+    white-space: pre-wrap;
+}
+.modal-close-btn {
+    position: absolute; top: 15px; right: 15px; background: none;
+    border: none; font-size: 1.5rem; color: var(--subtitle-color);
+    cursor: pointer;
+}
+.modal-close-btn:hover { color: var(--text-color); }
+
+.loader {
+    border: 4px solid var(--accent-gray); border-top: 4px solid var(--loader-color);
+    border-radius: 50%; width: 30px; height: 30px;
+    animation: spin 1s linear infinite; margin: 20px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- Accordion Slider Styles --- */
+.accordion-wrapper-outer {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    padding: 20px 0; /* This padding contributes to its height */
+    background-color: var(--bg-color); 
+    position: fixed; 
+    bottom: 50px; /* Positioned above the footer (estimated footer height ~50px) */
+    left: 0; 
+    right: 0; 
+    z-index: 800;
+    border-top: 1px solid var(--accent-gray);
+    box-sizing: border-box;
+    /* Actual height of accordion-wrapper-outer is its content + padding. Let's assume ~100px for panes/controls + 40px padding = ~140px */
+}
+.accordion-wrapper-inner {
+     max-width: 90%; width: 1000px; margin: 0 auto;
+}
+.accordion-container {
+    overflow: hidden; width: 100%; position: relative;
+    border-radius: 8px; border: 1px solid var(--accent-gray);
+}
+.accordion-track {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(.48,0,.11,1);
+    will-change: transform;
+}
+.accordion-controls {
+    display: flex; justify-content: center; margin: 1rem 0; gap: 1rem;
+}
+.accordion-controls button {
+    padding: 0.5rem 1rem; font-size: 1rem; font-family: 'Inter', sans-serif;
+    background-color: var(--accordion-controls-bg); color: var(--accordion-controls-text);
+    border: 1px solid var(--toggle-border); border-radius: 20px; cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.accordion-controls button:hover { background-color: var(--accordion-controls-hover-bg); }
+
+.pane {
+    flex-shrink: 0; height: 60px;
+    color: var(--accordion-pane-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 500; user-select: none; cursor: pointer;
+    transition: flex 0.8s cubic-bezier(.47,0,0,1), background-color 0.3s ease, color 0.3s ease;
+    border-right: 1px solid var(--accent-gray);
+}
+.pane:last-child { border-right: none; }
+
+/* Individual Pane Colors */
+.pane:nth-child(1) { background-color: var(--pane-1-bg); }
+.pane:nth-child(1).active { background-color: var(--pane-1-active-bg); }
+.pane:nth-child(2) { background-color: var(--pane-2-bg); }
+.pane:nth-child(2).active { background-color: var(--pane-2-active-bg); }
+.pane:nth-child(3) { background-color: var(--pane-3-bg); }
+.pane:nth-child(3).active { background-color: var(--pane-3-active-bg); }
+.pane:nth-child(4) { background-color: var(--pane-4-bg); }
+.pane:nth-child(4).active { background-color: var(--pane-4-active-bg); }
+.pane:nth-child(5) { background-color: var(--pane-5-bg); }
+.pane:nth-child(5).active { background-color: var(--pane-5-active-bg); }
+
+/* .timeline-lottie-container and its children are no longer needed */
+
+@media (max-width: 768px) {
+    .content-placeholder { width: 90%; margin-top: 70px; }
+    #dynamicContentTitle { font-size: 1.8rem; }
+    .entry h4 { font-size: 1.1rem; }
+    .job-title, .degree-title { font-size: 0.95rem; }
+    .key-skills, .entry ul { font-size: 0.9rem; }
+    .top-bar { padding: 10px 15px; }
+    .profile-image-container img { height: 35px; width: 35px; }
+    #themeToggle { padding: 6px 12px; font-size: 0.75rem; }
+    .modal-content { width: 95%; padding: 20px; }
+    .modal-title { font-size: 1.1rem; }
+    .accordion-wrapper-inner { max-width: 95%; }
+    .pane { font-size: 0.9rem; height: 50px; }
+}
+@media (max-width: 480px) {
+    .top-bar { padding: 10px; }
+    .profile-image-container img { height: 30px; width: 30px; }
+    #dynamicContentTitle { font-size: 1.5rem; }
+    .entry h4 { font-size: 1rem; }
+    .float-right-span { float: none; display: block; font-size: 0.8em; margin-top: 3px; }
+    .entry ul li { padding-left: 20px; }
+    .entry ul li::before { left: 0; }
+    .gemini-rephrase-icon { font-size: 0.8em; }
+.gemini-summary-button { font-size: 0.8rem; padding: 5px 10px; width: 100%; box-sizing: border-box;}
+.pane { font-size: 0.75rem; height: 45px; }
+.accordion-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+}
+
+/* Skills Section Grid */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Gap between categories */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.skills-category {
+    padding: 15px;
+    border: 1px solid var(--accent-gray);
+    border-radius: 8px;
+    background-color: var(--bg-color); /* Use background color for consistency */
+}
+
+.skills-category h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--section-title-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for icons */
+    gap: 10px; /* Gap between icons */
+    justify-items: center; /* Center icons in their grid cells */
+}
+
+.skills-grid img {
+    margin: 5px; /* Reduced margin for tighter packing */
+    height: 45px; /* Slightly smaller for better fit */
+    width: auto; /* Maintain aspect ratio */
+}
+
+/* Adjustments for smaller screens if categories stack */
+@media (max-width: 900px) { /* Adjust breakpoint as needed */
+    .skills-container {
+        grid-template-columns: 1fr; /* Stack categories on smaller screens */
+    }
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px 20px; 
+    font-size: 0.85rem;
+    color: var(--subtitle-color);
+    border-top: 1px solid var(--accent-gray);
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed; 
+    bottom: 0; /* At the very bottom */
+    left: 0; 
+    right: 0; 
+    background-color: var(--bg-color); 
+    z-index: 799; 
+    /* Estimated height of footer is its content + padding. Let's assume ~20px text + 30px padding = ~50px */
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Ensure content placeholder is above footer and accordion in stacking context if they weren't fixed */
+/* Not strictly necessary with fixed positioning but good for clarity */
+.content-placeholder {
+    position: relative; 
+    z-index: 1; 
+}
