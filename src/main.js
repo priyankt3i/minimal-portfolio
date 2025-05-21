@@ -1,4 +1,5 @@
 import './style.css';
+import './chat-widget.js'; // Import the chat widget
 
 // Lottie Player References are no longer needed globally
 // const lottieEducation = document.getElementById('lottieEducation');
