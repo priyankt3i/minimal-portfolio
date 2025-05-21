@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 
-    const geminiApiKey = process.env.GEMINI_API_KEY; // Securely accessed from Vercel env vars
+    const geminiApiKey = process.env.VITE_GEMINI_API_KEY; // Securely accessed from Vercel env vars
 
     if (!geminiApiKey) {
         return res.status(500).json({ error: "API key not configured on the server." });
