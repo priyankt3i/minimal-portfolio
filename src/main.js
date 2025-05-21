@@ -274,35 +274,52 @@ geminiModal.addEventListener('click', (event) => {
 
 async function callGeminiAPI(prompt, modalTitle) {
     showGeminiModal(true, modalTitle);
-    const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-    const payload = { contents: chatHistory }; // This is the payload for the Gemini API
+    
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+        console.error('Gemini API Key is missing. Make sure VITE_GEMINI_API_KEY is set in your .env file.');
+        showGeminiModal(false, "API Key Error", "Gemini API key is missing. Please check .env file and restart the dev server.");
+        return;
+    }
 
-    // This script now calls a backend proxy endpoint for security.
-    // The backend proxy will handle the API key and the actual call to Gemini.
-    const proxyApiUrl = '/api/gemini-proxy'; // This endpoint needs to be created on your backend
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const geminiPayload = {
+      contents: [{
+        role: "user",
+        parts: [{ text: prompt }]
+      }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,
+      }
+    };
 
     try {
-        const response = await fetch(proxyApiUrl, {
+        const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) // Send the original payload to your backend proxy
+            headers: headers,
+            body: JSON.stringify(geminiPayload)
         });
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Gemini API Error:", errorData);
-            showGeminiModal(false, "Error", `Failed to get suggestion. Status: ${response.status}. ${errorData?.error?.message || ''}`);
+        
+        const data = await response.json();
+
+        if (data.error) {
+            console.error('Gemini API error:', data.error);
+            showGeminiModal(false, "Error", `Gemini API Error: ${data.error.message || 'Unknown error'}`);
             return;
         }
-        const result = await response.json();
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            const generatedText = result.candidates[0].content.parts[0].text;
-            showGeminiModal(false, modalTitle, generatedText);
-        } else {
-            console.error("Unexpected Gemini API response structure:", result);
-            showGeminiModal(false, "Error", "Received an unexpected response from Gemini.");
+        if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content || !data.candidates[0].content.parts || data.candidates[0].content.parts.length === 0) {
+            console.error('Gemini error: Invalid response structure', data);
+            showGeminiModal(false, "Error", "Received an invalid response structure from Gemini.");
+            return;
         }
+        const generatedText = data.candidates[0].content.parts[0].text;
+        showGeminiModal(false, modalTitle, generatedText);
     } catch (error) {
         console.error("Error calling Gemini API:", error);
         showGeminiModal(false, "Error", "Could not connect to Gemini. Please check your connection or try again later.");
@@ -310,7 +327,9 @@ async function callGeminiAPI(prompt, modalTitle) {
 }
 
 function addGeminiSummaryButtons() {
-    const entries = document.querySelectorAll('#experiencesContainer .entry');
+    // Select all .entry elements that could contain a summary button,
+    // including those in education and experiences sections.
+    const entries = document.querySelectorAll('#portfolioContentArea .entry'); 
     for (const entry of entries) {
         const summaryButton = entry.querySelector('.gemini-summary-button');
         if (summaryButton && !summaryButton.dataset.listenerAttached) {
@@ -325,7 +344,7 @@ function addGeminiSummaryButtons() {
                                        .map(li => li.firstChild.textContent.trim())
                                        .join("\n - ");
                 
-                const prompt = `You are a helpful career assistant. Based on the following job details, generate a concise 2-3 sentence summary of the role and its key achievements.\n\nCompany: ${companyName}\nJob Title: ${jobTitle}\nResponsibilities and Achievements:\n - ${bulletPoints}\n\nSummary:`;
+                const prompt = `You are a grumpy, sarcastic dad in your late 50s. You always have a comment about “kids these days,” complain about tech you don’t understand, and reluctantly give advice—even though you're usually right. Based on the following job details, generate a concise 2-3 sentence summary of the role and its key achievements.\n\nCompany: ${companyName}\nJob Title: ${jobTitle}\nResponsibilities and Achievements:\n - ${bulletPoints}\n\nSummary:`;
                 callGeminiAPI(prompt, `✨ Summary for ${jobTitle} at ${companyName}`);
             });
             summaryButton.dataset.listenerAttached = 'true';
